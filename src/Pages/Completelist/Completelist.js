@@ -71,7 +71,7 @@ const Completelist = () => {
                   newlist?.map(list =>
                    <Col key={list._id} lg={4} md={6} sm={12}>
                   <Card border="dark" style={{ width: '18rem' }}>
-                  <Card.Header className="d-flex justify-content-between"> <h4><i  className="far fa-edit"></i></h4> <h4><i onClick={() => DeleteHandler(list._id)}  className="far fa-calendar-times"></i></h4> </Card.Header>
+                  <Card.Header className="d-flex justify-content-between">  <h4><i onClick={() => DeleteHandler(list._id)}  className="far fa-calendar-times"></i></h4> </Card.Header>
                   <Card.Body>
                     <Card.Title className="d-flex">{list.title}</Card.Title>
                     <Card.Text>

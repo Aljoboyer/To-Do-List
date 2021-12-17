@@ -87,9 +87,33 @@ const Yourlist = () => {
         setShow(true)
       })
   }
+
+
   const SubmitHandler = () =>{
     const updatedAt = new Date().toLocaleDateString()
-    const newdata = {...tododata, updatedAt}
+    
+    const newdata = {...tododata, updatedAt};
+    delete newdata['_id'];
+    fetch(`http://localhost:5000/updatelist/${tododata._id}`,{
+      method: 'PUT',
+      headers: {
+        'content-type':'application/json'
+      },
+      body: JSON.stringify(newdata)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.modifiedCount > 0)
+      {
+        Swal.fire(
+          'Updated!',
+          'Task Updated Successfully.',
+          'success'
+        )
+        setDemo(lists)
+        setShow(false)
+      }
+    })
   }
     return (
        <Row className="justify-content-center g-2">
@@ -120,10 +144,10 @@ const Yourlist = () => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Notice</Modal.Title>
+          <Modal.Title>Edit Your Todo List</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form  onSubmit={SubmitHandler}> 
+
         <FloatingLabel
             controlId="floatingInput"
             label="Write Title" 
@@ -140,11 +164,11 @@ const Yourlist = () => {
             style={{ height: '80px' }}
             />
         </FloatingLabel>
-        <button type="submit" className="btn btn-dark fw-bold text-warning my-4">Update to List</button>
-        </Form>
+        <button onClick={SubmitHandler} className="btn btn-dark fw-bold text-warning my-4">Update to List</button>
+
         </Modal.Body>
         <Modal.Footer>
-          <Button  className="btn btn-warning" variant="secondary" onClick={handleClose}>
+          <Button   className="btn btn-warning" variant="secondary" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

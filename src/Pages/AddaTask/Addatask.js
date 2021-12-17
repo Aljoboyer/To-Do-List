@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FloatingLabel, Form, Row } from 'react-bootstrap';
+import { FloatingLabel, Form, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 const Addatask = () => {
@@ -41,15 +41,19 @@ const Addatask = () => {
     }
     return (
         <Row className="justify-content-center">
-        <h2 className="text-center my-4 fw-bold">Add a Task To-Do list</h2>
+        <h2 className="text-center my-4 fw-bold">Add a Task</h2>
         <Form  onSubmit={SubmitHandler}> 
+        <Row>
         <FloatingLabel
+            
             controlId="floatingInput"
             label="Write Title"
-            className="mb-3"
         >
-            <Form.Control name="title" onBlur={onBlurHandler} type="text" placeholder="Enter Title" />
+            <Form.Control as={Col} name="title" onBlur={onBlurHandler} type="text" placeholder="Enter Title" />
         </FloatingLabel>
+        <label>Select Ta</label>
+        <Form.Control className="my-4" as={Col} name="taskdate" onBlur={onBlurHandler} type="date" />
+        </Row>
         <FloatingLabel controlId="floatingTextarea2" label="Write Description">
             <Form.Control
             name="description" onBlur={onBlurHandler}
