@@ -17,7 +17,7 @@ const Addatask = () => {
     const SubmitHandler = e => {
         e.preventDefault()
         const createdAt = new Date().toLocaleDateString();
-        const listdata = {...tododata, isDone:'', isActive: '', createdAt , updatedAt: ''}
+        const listdata = {...tododata, createdAt }
 
         //adding list 
         fetch('http://localhost:5000/addinglist',{
@@ -41,7 +41,7 @@ const Addatask = () => {
     }
     return (
         <Row className="justify-content-center">
-        <h2 className="text-center my-4 fw-bold">Add a Task To list</h2>
+        <h2 className="text-center my-4 fw-bold">Add a Task To-Do list</h2>
         <Form  onSubmit={SubmitHandler}> 
         <FloatingLabel
             controlId="floatingInput"

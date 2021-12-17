@@ -1,25 +1,107 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Col, InputGroup, Row } from 'react-bootstrap';
+import {FloatingLabel, Card, Col, InputGroup, Row , Modal, Button, Form} from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 const Yourlist = () => {
     const [lists, setLists] = useState([]);
+    const [demo, setDemo] = useState([]);
+    const [tododata, setTododata] = useState({});
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+
+    const onBlurHandler = e => {
+        const dataname = e.target.name;
+        const datavalue = e.target.value;
+
+        const newdata = {...tododata}
+        newdata[dataname] = datavalue;
+
+        setTododata(newdata)
+    }
 
     useEffect(() => {
         fetch('http://localhost:5000/alltodo')
         .then(res => res.json())
         .then(data => setLists(data))
-    },[])
+    },[demo])
+    const newlist = lists.filter(list => list.isDone !== 'done')
+
+    //inserting complete data
+    const CompleteHandler = (list) => {
+        const id = list._id
+        delete list['_id'];
+        fetch(`http://localhost:5000/completetask/${id}`,{
+            method: 'PUT',
+            body: JSON.stringify(list)
+        })
+        .then(res => res.json())
+        .then(data => {
+            setDemo(lists)
+            Swal.fire(
+              'Good Job',
+              'Your Task is Completed',
+              'success'
+            )
+        })
+    }
+
+    const FinalDelete = (id) => {
+      fetch(`http://localhost:5000/deleteone/${id}`,{
+        method: 'DELETE'
+      })
+      .then(res => res.json())
+      .then(data => {
+          Swal.fire(
+              'Deleted!',
+              'Task  has been deleted.',
+              'success'
+            )
+            setDemo(lists)
+      })
+  }
+
+  const DeleteHandler = (id) => {
+    console.log("clicked")
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+              FinalDelete(id)
+              
+          }
+        })
+
+  }
+
+  const updatehandler = (id) => {
+    fetch(`http://localhost:5000/findupdatelist/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setTododata(data)
+        setShow(true)
+      })
+  }
+  const SubmitHandler = () =>{
+    const updatedAt = new Date().toLocaleDateString()
+    const newdata = {...tododata, updatedAt}
+  }
     return (
        <Row className="justify-content-center g-2">
      <h2 className="text-center my-4 fw-bold">Your Todo list</h2>
          
           {
-               lists?.map(list =>
-                <Col lg={4} md={6} sm={12}>
+               newlist?.map(list =>
+                <Col key={list._id} lg={4} md={6} sm={12}>
                <Card border="dark" style={{ width: '18rem' }}>
-               <Card.Header className="d-flex justify-content-between"> <h4><i className="far fa-edit"></i></h4> <h4><i className="far fa-calendar-times"></i></h4> </Card.Header>
+               <Card.Header className="d-flex justify-content-between"> <h4><i  onClick={() => updatehandler(list._id)} className="far fa-edit"></i></h4> <h4><i onClick={() => DeleteHandler(list._id)} className="far fa-calendar-times"></i></h4> </Card.Header>
                <Card.Body>
-                 <Card.Title className="d-flex"><InputGroup.Checkbox/>{list.title}</Card.Title>
+                 <Card.Title className="d-flex"><InputGroup.Checkbox onClick={() => CompleteHandler(list)} className="mx-2"/>{list.title}</Card.Title>
                  <Card.Text>
                    {list.description}
                  </Card.Text>
@@ -30,6 +112,43 @@ const Yourlist = () => {
              )
            }
          
+
+         <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Notice</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form  onSubmit={SubmitHandler}> 
+        <FloatingLabel
+            controlId="floatingInput"
+            label="Write Title" 
+            className="mb-3"
+        >
+            <Form.Control value= {tododata.title} name="title" onChange={onBlurHandler} type="text" placeholder="Enter Title" />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatingTextarea2" label="Write Description">
+            <Form.Control
+            value= {tododata.description}
+            name="description" onChange={onBlurHandler}
+            as="textarea"
+            placeholder="Write Description"
+            style={{ height: '80px' }}
+            />
+        </FloatingLabel>
+        <button type="submit" className="btn btn-dark fw-bold text-warning my-4">Update to List</button>
+        </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button  className="btn btn-warning" variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
        </Row>
     );
 };
