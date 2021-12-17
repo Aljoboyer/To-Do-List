@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 const Yourlist = () => {
     const [lists, setLists] = useState([]);
+    const [mark, setMark] = useState(false)
     const [demo, setDemo] = useState([]);
     const [tododata, setTododata] = useState({});
     const [show, setShow] = useState(false);
@@ -24,7 +25,7 @@ const Yourlist = () => {
         .then(res => res.json())
         .then(data => setLists(data))
     },[demo])
-    const newlist = lists.filter(list => list.isDone !== 'done')
+    // const lists = lists.filter(list => list.isDone !== 'done')
 
     //inserting complete data
     const CompleteHandler = (list) => {
@@ -37,6 +38,7 @@ const Yourlist = () => {
         .then(res => res.json())
         .then(data => {
             setDemo(lists)
+            setMark(true)
             Swal.fire(
               'Good Job',
               'Your Task is Completed',
@@ -116,17 +118,19 @@ const Yourlist = () => {
     })
   }
     return (
-       <Row className="justify-content-center g-2">
+       <Row className="justify-content-center g-2 ">
      <h2 className="text-center my-4 fw-bold">Your Todo list</h2>
          
           {
-               newlist?.map(list =>
+               lists?.map(list =>
                 <Col key={list._id} lg={4} md={6} sm={12}>
-               <Card border="dark" style={{ width: '18rem' }}>
+               <Card  className="taskcolam" border="dark" style={{ width: '18rem' }}>
                <Card.Header className="d-flex justify-content-between"> <h4><i  onClick={() => updatehandler(list._id)} className="far fa-edit"></i></h4> <h4><i onClick={() => DeleteHandler(list._id)} className="far fa-calendar-times"></i></h4> </Card.Header>
                <Card.Body>
-                 <Card.Title className="d-flex"><InputGroup.Checkbox onClick={() => CompleteHandler(list)} className="mx-2"/>{list.title}</Card.Title>
+                 <h6> {mark ? <i className="far fa-check-circle fa-2x az me-2"></i> : <i onClick={() => CompleteHandler(list)}  class="far fa-check-circle fa-2x me-2"></i>} Mark As Done</h6>
+                 <Card.Title className="d-flex">{list.title}</Card.Title>
                  <Card.Text>
+                   <p className="fw-bold text-primary">{list.taskdate}</p>
                    {list.description}
                  </Card.Text>
                </Card.Body>
@@ -148,13 +152,16 @@ const Yourlist = () => {
         </Modal.Header>
         <Modal.Body>
 
-        <FloatingLabel
-            controlId="floatingInput"
-            label="Write Title" 
-            className="mb-3"
-        >
-            <Form.Control value= {tododata.title} name="title" onChange={onBlurHandler} type="text" placeholder="Enter Title" />
-        </FloatingLabel>
+        <Form.Group className="mb-4" as={Col} controlId="formGridEmail">
+              <Form.Label className="fw-bold fs-6">Write Title</Form.Label>
+              <Form.Control value={tododata.title} name="title" type="text" onChange={onBlurHandler}  />
+            </Form.Group>
+
+            <Form.Group className="mb-4" as={Col} controlId="formGridEmail">
+              <Form.Label className="fw-bold fs-6">Select Date </Form.Label>
+              <Form.Control value={tododata.taskdate} name="taskdate" type="date" onChange={onBlurHandler}  />
+            </Form.Group>
+
         <FloatingLabel controlId="floatingTextarea2" label="Write Description">
             <Form.Control
             value= {tododata.description}

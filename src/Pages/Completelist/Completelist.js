@@ -64,16 +64,16 @@ const Completelist = () => {
  
     return (
         <Row className="justify-content-center g-2">
-        <h2 className="text-center my-4 fw-bold">Your Completed list</h2>
+        <h2 className="text-center my-4 fw-bold">Your Completed Task list</h2>
         <button onClick={ClearHanlder} className='btn btn-dark fw-bold text-warning'>Clear All</button>
             
              {
                   newlist?.map(list =>
-                   <Col key={list._id} lg={4} md={6} sm={12}>
-                  <Card border="dark" style={{ width: '18rem' }}>
+                   <Col  key={list._id} lg={4} md={6} sm={12}>
+                  <Card className='taskcolam' border="dark" style={{ width: '18rem' }}>
                   <Card.Header className="d-flex justify-content-between">  <h4><i onClick={() => DeleteHandler(list._id)}  className="far fa-calendar-times"></i></h4> </Card.Header>
                   <Card.Body>
-                    <Card.Title className="d-flex">{list.title}</Card.Title>
+                    <Card.Title className="d-flex"><i className="far fa-check-circle fa-2x az me-2"></i>{list.title}</Card.Title>
                     <Card.Text>
                       {list.description}
                     </Card.Text>

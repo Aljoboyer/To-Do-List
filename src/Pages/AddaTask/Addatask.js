@@ -40,29 +40,27 @@ const Addatask = () => {
         
     }
     return (
-        <Row className="justify-content-center">
+        <Row className="justify-content-center all">
         <h2 className="text-center my-4 fw-bold">Add a Task</h2>
-        <Form  onSubmit={SubmitHandler}> 
+        <Form className="addtaskform p-4"  onSubmit={SubmitHandler}> 
         <Row>
-        <FloatingLabel
-            
-            controlId="floatingInput"
-            label="Write Title"
-        >
-            <Form.Control as={Col} name="title" onBlur={onBlurHandler} type="text" placeholder="Enter Title" />
-        </FloatingLabel>
-        <label>Select Ta</label>
-        <Form.Control className="my-4" as={Col} name="taskdate" onBlur={onBlurHandler} type="date" />
+
+        <Form.Group className="mb-4" as={Col} controlId="formGridEmail">
+              <Form.Label className="fw-bold fs-6">Write Title</Form.Label>
+              <Form.Control placeholder="Write Title" name="title" type="text" onBlur={onBlurHandler}  />
+            </Form.Group>
+
+            <Form.Group className="mb-4" as={Col} controlId="formGridEmail">
+              <Form.Label className="fw-bold fs-6">Select Date </Form.Label>
+              <Form.Control name="taskdate" type="date" onBlur={onBlurHandler}  />
+            </Form.Group>
         </Row>
-        <FloatingLabel controlId="floatingTextarea2" label="Write Description">
-            <Form.Control
-            name="description" onBlur={onBlurHandler}
-            as="textarea"
-            placeholder="Write Description"
-            style={{ height: '80px' }}
-            />
-        </FloatingLabel>
-        <button type="submit" className="btn btn-dark fw-bold text-warning my-4">Add to List</button>
+
+        <Form.Group className="mb-4" as={Col} controlId="formGridEmail">
+              <Form.Label className="fw-bold fs-6">Write Description</Form.Label>
+              <Form.Control as="textarea"  style={{ height: '80px' }} placeholder="Write Description" name="description" type="text" onBlur={onBlurHandler}  />
+            </Form.Group>
+        <button type="submit" className="btn btn-warning fw-bold text-dark my-4">Add to List</button>
         </Form>
         </Row>
     );
