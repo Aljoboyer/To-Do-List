@@ -63,7 +63,7 @@ const Completelist = () => {
 
  
     return (
-        <Row className="justify-content-center g-2">
+        <Row className="justify-content-center gap-3 gy-3 ">
         <h2 className="text-center my-4 fw-bold">Your Completed Task list</h2>
         <button onClick={ClearHanlder} className='btn btn-dark fw-bold text-warning'>Clear All</button>
             

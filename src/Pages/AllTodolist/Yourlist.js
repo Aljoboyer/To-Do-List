@@ -118,7 +118,7 @@ const Yourlist = () => {
     })
   }
     return (
-       <Row className="justify-content-center g-3 p-4">
+       <Row className="justify-content-center gap-3 gy-3 p-4">
        <h2 className="text-center my-4 fw-bold">Your Todo list</h2>
          
           {
