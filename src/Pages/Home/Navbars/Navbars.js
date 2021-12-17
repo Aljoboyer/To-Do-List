@@ -11,7 +11,7 @@ const Navbars = () => {
           <Nav className="me-auto">
           </Nav>
           <Nav>
-
+          <i className="fas fa-user-alt fa-2x"></i>
           </Nav>
         </Navbar.Collapse>
         </Container>

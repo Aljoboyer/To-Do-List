@@ -118,16 +118,16 @@ const Yourlist = () => {
     })
   }
     return (
-       <Row className="justify-content-center g-2 ">
-     <h2 className="text-center my-4 fw-bold">Your Todo list</h2>
+       <Row className="justify-content-center g-3 p-4">
+       <h2 className="text-center my-4 fw-bold">Your Todo list</h2>
          
           {
                lists?.map(list =>
                 <Col key={list._id} lg={4} md={6} sm={12}>
                <Card  className="taskcolam" border="dark" style={{ width: '18rem' }}>
-               <Card.Header className="d-flex justify-content-between"> <h4><i  onClick={() => updatehandler(list._id)} className="far fa-edit"></i></h4> <h4><i onClick={() => DeleteHandler(list._id)} className="far fa-calendar-times"></i></h4> </Card.Header>
+               <Card.Header className="d-flex justify-content-between"> {list.isDone === 'done' ? '' : <h4><i  onClick={() => updatehandler(list._id)} className="far fa-edit"></i></h4>} <h4><i onClick={() => DeleteHandler(list._id)} className="far fa-calendar-times"></i></h4> </Card.Header>
                <Card.Body>
-                 <h6> {mark ? <i className="far fa-check-circle fa-2x az me-2"></i> : <i onClick={() => CompleteHandler(list)}  class="far fa-check-circle fa-2x me-2"></i>} Mark As Done</h6>
+                {list.isDone === 'done' ? <h6> <i className="far fa-check-circle fa-2x az me-2"></i>Task Completed</h6> :  <h6>  <i onClick={() => CompleteHandler(list)}  class="far fa-check-circle fa-2x me-2"></i> Mark As Done</h6> } 
                  <Card.Title className="d-flex">{list.title}</Card.Title>
                  <Card.Text>
                    <p className="fw-bold text-primary">{list.taskdate}</p>

@@ -73,7 +73,8 @@ const Completelist = () => {
                   <Card className='taskcolam' border="dark" style={{ width: '18rem' }}>
                   <Card.Header className="d-flex justify-content-between">  <h4><i onClick={() => DeleteHandler(list._id)}  className="far fa-calendar-times"></i></h4> </Card.Header>
                   <Card.Body>
-                    <Card.Title className="d-flex"><i className="far fa-check-circle fa-2x az me-2"></i>{list.title}</Card.Title>
+                  <h6> <i className="far fa-check-circle fa-2x az me-2"></i>Task Completed</h6>
+                    <Card.Title className="d-flex">{list.title}</Card.Title>
                     <Card.Text>
                       {list.description}
                     </Card.Text>

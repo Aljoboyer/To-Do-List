@@ -40,8 +40,8 @@ const Addatask = () => {
         
     }
     return (
-        <Row className="justify-content-center all">
-        <h2 className="text-center my-4 fw-bold">Add a Task</h2>
+        <Row className="justify-content-center ">
+        <h2 className="text-center my-4 fw-bold">Add Todo Task</h2>
         <Form className="addtaskform p-4"  onSubmit={SubmitHandler}> 
         <Row>
 
