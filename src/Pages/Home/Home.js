@@ -13,10 +13,10 @@ const Home = () => {
             <Navbars></Navbars>
     
             <Row className="justify-content-center">
-               <Col lg={3}>
+               <Col lg={2}>
                    <Homesidebar></Homesidebar>
                </Col>
-               <Col lg={8} md={10} sm={12}>
+               <Col lg={10} md={10} sm={12}>
                     <Outlet/>
                 </Col>
             </Row>
