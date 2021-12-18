@@ -41,7 +41,8 @@ const Addatask = () => {
     }
     return (
         <Row className="justify-content-center ">
-        <h2 className="text-center my-4 fw-bold">Add Todo Task</h2>
+            <Col lg={8} md={12} sm={12}>
+            <h2 className="text-center my-4 fw-bold">Add Todo Task</h2>
         <Form className="addtaskform p-4"  onSubmit={SubmitHandler}> 
         <Row>
 
@@ -62,6 +63,7 @@ const Addatask = () => {
             </Form.Group>
         <button type="submit" className="btn btn-warning fw-bold text-dark my-4">Add to List</button>
         </Form>
+            </Col>
         </Row>
     );
 };
