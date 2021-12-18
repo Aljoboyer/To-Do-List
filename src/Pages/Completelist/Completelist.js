@@ -7,14 +7,14 @@ const Completelist = () => {
     const [demo, setDemo] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/alltodo')
+        fetch('https://stormy-ocean-88119.herokuapp.com/alltodo')
         .then(res => res.json())
         .then(data => setLists(data))
     },[demo])
     const newlist = lists.filter(list => list.isDone === 'done')
     
     const FinalDelete = (id) => {
-        fetch(`http://localhost:5000/deleteone/${id}`,{
+        fetch(`https://stormy-ocean-88119.herokuapp.com/deleteone/${id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -47,7 +47,7 @@ const Completelist = () => {
     }
 
     const ClearHanlder = () => {
-        fetch('http://localhost:5000/deletealldone',{
+        fetch('https://stormy-ocean-88119.herokuapp.com/deletealldone',{
             method: 'DELETE'
         })
         .then(res => res.json())
